@@ -180,7 +180,7 @@ Protecting Genuine Workers
 | Payments | Razorpay Test Mode / UPI Simulator |
 | Admin Dashboard | React (web) |
 | DevOps | Docker · GitHub Actions · AWS EC2 / Render |
-## Coverage Exclusions
+
 
 10.RiskGuard strictly covers ONLY income loss due to external disruptions.
 
