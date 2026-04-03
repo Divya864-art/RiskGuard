@@ -180,8 +180,23 @@ Protecting Genuine Workers
 | Payments | Razorpay Test Mode / UPI Simulator |
 | Admin Dashboard | React (web) |
 | DevOps | Docker · GitHub Actions · AWS EC2 / Render |
+## Coverage Exclusions
 
-10. Platform Choice
+10.RiskGuard strictly covers ONLY income loss due to external disruptions.
+
+The following are NOT covered:
+
+- ❌ Health issues or illness of the worker
+- ❌ Accidents or injuries
+- ❌ Vehicle breakdown or repair costs
+- ❌ Personal leave or voluntary absence
+- ❌ Platform bans or account suspension
+- ❌ Low demand or fewer orders (non-disruption related)
+- ❌ Internet/data issues unrelated to disruption events
+
+This ensures clear scope and prevents misuse of the insurance model.
+
+11. Platform Choice
 
 **Mobile app (Android-first) + Web admin dashboard**
 
