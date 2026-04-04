@@ -1,239 +1,340 @@
-# RiskGuard
-AI-Powered Parametric Income Insurance for Gig Delivery Workers
+# 🛡 RiskGuard — AI-Powered Parametric Insurance for Gig Workers
 
-> Guidewire DEVTrails 2026 | Phase 1 Submission
+> **"When the rain stops your ride, RiskGuard pays you — automatically."**
+## Problem Statement
 
-RiskGuard protects food delivery partners (Swiggy/Zomato) from income loss caused by external disruptions — extreme weather, pollution, and civic events. No paperwork. No claims. Fully automated.
+India has over **12 million gig delivery workers** on platforms like Swiggy, Zomato, Dunzo, and Blinkit. Every day, they face income disruptions entirely beyond their control:
 
-**Coverage: Loss of Income ONLY** · **Pricing: Weekly** · **Persona: Food Delivery (Chennai)**
+- 🌧 **Heavy rainfall** shuts down delivery zones
+- 🌡 **Extreme heat waves** make outdoor work dangerous
+- 🌫 **Toxic AQI levels** force workers off the road
+- 🚧 **Traffic blockages** make timely delivery impossible
+- 📉 **Order volume crashes** during platform outages or civic disruptions
 
----
+The Gap
 
- 1. Persona
+> These workers have **zero financial protection**. Traditional insurance is too slow, too expensive, too paperwork-heavy — and simply not designed for the gig economy.
 
-**Rajan, 26 — Swiggy/Zomato Delivery Partner, Chennai**
+When disruptions strike, their income stops. There is no safety net.
 
-| Detail | Value |
+## Our Solution
 
-| Weekly earnings | ₹3,500 – ₹4,500 |
-| Working hours | 10–12 hrs/day, 6 days/week |
-| Peak income window | 12–2 PM (lunch) · 7–9 PM (dinner) |
-| Payment cycle | Weekly UPI/bank transfer |
+**RiskGuard** is a real-time, AI-powered parametric insurance platform built exclusively for gig delivery workers.
 
-Pain points:No income safety net. One bad-weather day = ₹600–₹800 lost. No documentation, no recourse, no insurance product designed for him.
+Unlike traditional insurance:
 
----
-
-2. Problem & Scenario
-
-External disruptions — heavy rain, floods, extreme heat, hazardous AQI, local curfews — regularly halt delivery operations. Workers lose **20–30% of monthly income** with zero protection.
-
-Example — Chennai Monsoon, October:
-> IMD issues a Red Alert at 3 PM. Swiggy suspends operations in Rajan's zone by 4 PM. Roads flood.
-> Rajan loses his entire dinner-hour earnings: ~₹700.
-> **Without RiskGuard:** No recourse. He asks his landlord for an extension.
-> **With RiskGuard:** Rainfall crosses the trigger threshold. System auto-validates his zone and active policy. ₹350 hits his UPI by 6 PM. No action needed from Rajan.
-
-3. Solution Overview
-
-RiskGuard monitors real-world conditions continuously and pays workers automatically when a verified disruption halts their ability to work.
-
-
-Worker pays ₹X/week → System monitors live data → Threshold breached
-→ Fraud check passes → Payout sent to UPI within 2 hours
-
-
-**No claim forms. No approval wait. No documentation.**
-
- 4. System Workflow
-ONBOARDING
-  Worker registers → enters zone + platform + UPI
-  AI Risk Profiler scores zone + season + activity pattern
-  Personalized weekly premium shown → paid via UPI → policy active
-
-MONITORING (Always On)
-  Live feeds: Weather API · AQI API · Civic alert feeds
-  Compares readings against parametric thresholds every 15 minutes
-  Checks which insured workers are active in the affected zone
-
-TRIGGER & VALIDATION
-  Threshold breached → Trigger Event logged
-  Fraud Detection Layer runs (see Section 8)
-  Pass → Auto-approved · Flag → Manual review queue
-
-PAYOUT
-  Amount = f(disruption duration, worker's earning baseline, tier)
-  Transferred to UPI within 2 hours
-  Push notification sent with breakdown
-
-DASHBOARD
-  Worker: active policy · earnings protected · payout history
-  Admin: claims · loss ratio · fraud flags · predictive analytics
-
- 5. Weekly Premium Model
-
-Premiums are billed weekly, matching the gig worker's natural pay cycle.
-
-Tiers
-
-| Tier | Weekly Premium | Max Weekly Payout | Triggers Covered |
-|---|---|---|---|
-| Basic | ₹25 | ₹500 | Rainfall + Flood |
-| Standard | ₹45 | ₹1,000 | + Extreme Heat + AQI |
-| Premium | ₹70 | ₹1,750 | + Civic Disruptions |
-
-Dynamic Pricing Formula
-
-Final Premium = Base Price
-              × Zone Risk Multiplier     (0.8 – 1.3, based on flood/disruption history)
-              × Seasonal Factor          (0.9 – 1.4, peaks during monsoon)
-              × Tenure Discount          (up to 15% off after 8 clean weeks)
-
-
-**Rajan's example — October, Velachery zone, Standard tier:**
-`₹45 × 1.25 (zone) × 1.30 (monsoon) × 0.90 (tenure) = ₹66/week`
-Max payout: ₹1,000 · Payout for 4-hour disruption: ~₹350
-
- Payout Formula
-
-
-Payout = (Disruption Hours / Avg. Daily Work Hours) × Weekly Earning Baseline × Coverage Ratio
-
-Capped at tier maximum.
-
- 6. Parametric Triggers
-
-All triggers are objective and data-driven. No self-reporting by the worker.
-
-| # | Trigger | Source | Threshold | Notes |
-|---|---|---|---|---|
-| T1 | Heavy Rainfall | OpenWeatherMap / IMD | > 35 mm in 3 hours | Min. 2-hour duration |
-| T2 | Extreme Heat | IMD / Weather API | > 42°C for 3+ hours | Midday window: 11 AM–3 PM |
-| T3 | Flood / Red Alert | IMD + civic feeds | Zone-level Red/Orange alert | Full disruption payout |
-| T4 | Severe AQI | CPCB API | AQI > 300 for 2+ hours | Hazardous category |
-| T5 | Civic Disruption | News API / Govt feeds | Verified curfew / bandh | Zone-specific validation |
-
-**Rules:** Worker must be in their registered zone + within active coverage window at time of trigger. Workers with no platform activity in the 2 hours prior are ineligible.
-
- 7. AI/ML Integration
-
-Premium Engine
-- **Model:** XGBoost (weekly retraining)
-- **Inputs:** Zone disruption history · worker activity hours · season · geography (flood-prone, coastal)
-- **Output:** Zone risk multiplier → final weekly premium
-
-Fraud Detection
-- **Model:** Isolation Forest + rule-based anomaly detection
-- **Detects:** Inactive workers claiming · wrong-zone claims · duplicate UPI claims · last-minute policy purchases before a known storm
-- **Scoring:** Fraud Risk Score 0–100. Score > 90 → auto-reject. Score 70–90 → manual review.
-
- 8. Adversarial Defense & Anti-Spoofing
-
-Threat Model
-
-| Attack | Description |
-| GPS Spoofing (Individual) | Fake GPS app to appear in an affected zone |
-| Coordinated Fraud Ring | Multiple workers spoofing the same location simultaneously |
-| Retroactive Policy Abuse | Buying a policy after a weather alert is issued |
-| False Disruption Claims | Claiming for minor events that didn't affect the zone |
-
-Multi-Signal Location Validation
-
-RiskGuard does **not rely on GPS alone**. Location confidence requires ≥3 of 5 signals to agree:
-
-GPS coordinate
-Cell tower / network triangulation
-Wi-Fi access point fingerprint
-IP geolocation
-Device sensor consistency (accelerometer / gyroscope)
-
-GPS-only matches with no corroborating signals are automatically flagged.
-
-Behavioral Checks
-
-- **Pre-trigger activity:** No platform activity in the 60 min before disruption → ineligible
-- **Zone pattern consistency:** Worker suddenly appearing in a higher-payout zone on a trigger day → flagged
-- **Device fingerprinting:** Two UPI IDs claiming from the same device → both flagged
-- **Policy timing:** Policies purchased within 4 hours of a public weather alert → not eligible for that event
-
-Coordinated Ring Detection
-
-- Claims from 10+ workers in the same zone within minutes of a trigger are cluster-analyzed for GPS path mirroring
-- Workers sharing the same IP range, Wi-Fi SSID, or cell tower at claim time are grouped and reviewed together
-
-Protecting Genuine Workers
-
-- Claims scoring 70–90 go to a human review queue (24-hour SLA), never auto-rejected
-- Rejected workers receive a clear explanation + one-tap appeal option
-- Workers with 12+ clean weeks earn **Verified Partner** status — reduced scrutiny on future claims
-
- 9. Tech Stack
-
-| Layer | Technology |
+| Traditional Insurance | RiskGuard |
 |---|---|
-| Mobile App | React Native (Android-first, works on 3G, Hindi/Tamil/Telugu i18n) |
-| Backend API | Node.js + Express |
-| ML Serving | Python + FastAPI |
-| Database | PostgreSQL (policies, claims) · Redis (real-time trigger state) |
-| ML Models | XGBoost (pricing) · Isolation Forest (fraud) · Scikit-learn |
-| Weather / AQI | OpenWeatherMap API · CPCB AQI API · IMD alerts |
-| Payments | Razorpay Test Mode / UPI Simulator |
-| Admin Dashboard | React (web) |
-| DevOps | Docker · GitHub Actions · AWS EC2 / Render |
+| File a claim manually | Claim triggers **automatically** |
+| Weeks to process | Payout in **seconds** |
+| Requires proof & paperwork | Driven by **environmental data** |
+| High fixed premiums | **Dynamic AI-calculated** weekly pricing |
+| Easy to defraud | **Multi-signal fraud detection** |
 
+### How It Works in One Line
 
-10.RiskGuard strictly covers ONLY income loss due to external disruptions.
+> The system continuously monitors weather, air quality, traffic, and worker activity. When a disruption threshold is crossed and the worker is verified as genuine, a payout is triggered — no human intervention required.
 
-The following are NOT covered:
+---
 
-- ❌ Health issues or illness of the worker
-- ❌ Accidents or injuries
-- ❌ Vehicle breakdown or repair costs
-- ❌ Personal leave or voluntary absence
-- ❌ Platform bans or account suspension
-- ❌ Low demand or fewer orders (non-disruption related)
-- ❌ Internet/data issues unrelated to disruption events
+##  Persona — Who We Built This For
 
-This ensures clear scope and prevents misuse of the insurance model.
+**Meet Ravi, 28 — Chennai-based Swiggy Delivery Partner**
 
-11. Platform Choice
+- 🏠 Lives in Tambaram, commutes to Koramangala delivery zone
+- 🛵 Earns ₹600–900/day on good days
+- 📱 Owns an Android phone; comfortable with basic apps
+- 💸 Supports a family of 3; no savings buffer
 
-**Mobile app (Android-first) + Web admin dashboard**
+**A Real Scenario:**
 
-Food delivery workers live on their smartphones — orders, navigation, payments all happen on-device. A mobile app is the only realistic interface for onboarding, notifications, and real-time policy status.
+> It's a Tuesday afternoon in June. The northeast monsoon hits Chennai unexpectedly hard. AQI spikes to 240. Rainfall exceeds 35mm. Swiggy orders in Ravi's zone drop by 72%. He parks his bike and waits — losing ₹700 in a single afternoon.
+>
+> With RiskGuard active on his phone:
+> - The AI engine detects the rainfall and AQI breach within 2 minutes
+> - Verifies Ravi's location confidence (94%) and activity status (Active)
+> - Calculates a payout of ₹750 based on his Standard Guard plan
+> - Credits it to his wallet — **before he even opens the app**
 
-Android is the primary target because 95%+ of Indian gig workers use Android (Redmi/Realme range). The app is designed for Android 9+, tested on 2GB RAM devices, and optimized for low-bandwidth networks.
+---
 
-The admin/insurer dashboard is a web app for internal operations teams only.
+## 🔄 System Overview
 
- 11. 6-Week Plan
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     RISKGUARD PLATFORM                       │
+│                                                              │
+│  [Worker App]                                                │
+│      │                                                       │
+│      ▼                                                       │
+│  [Registration + Policy Activation]                         │
+│      │                                                       │
+│      ▼                                                       │
+│  [Live Data Feed]  ←── Simulated APIs (Weather, AQI,        │
+│      │                  Traffic, Order Volume, GPS)          │
+│      ▼                                                       │
+│  [AI Decision Engine]                                        │
+│      ├── Disruption Detection (threshold analysis)          │
+│      ├── User Verification (activity + device signals)      │
+│      └── Fraud Scoring (0–100 risk score)                   │
+│      │                                                       │
+│      ▼                                                       │
+│  [Claim Processor]                                           │
+│      ├── SAFE → Instant payout to wallet                    │
+│      ├── SUSPICIOUS → Manual review flag                    │
+│      └── FRAUD → Payout blocked, incident logged            │
+│                                                              │
+│  [Dashboard] ←── Real-time visibility for worker            │
+└─────────────────────────────────────────────────────────────┘
 
-| Phase | Weeks | Deliverables |
+## Key Features
+
+### 1. 🧮 Dynamic Premium Calculation
+- AI calculates weekly premiums based on:
+  - **Zone risk multiplier** (e.g., Whitefield = 1.2×, Jayanagar = 0.85×)
+  - **Live weather conditions** (heavy rain/heat = +20% premium)
+  - **Seasonal patterns** (monsoon season uplift)
+- Premium updates in real time as conditions change
+- Displayed clearly: *"AI-calculated premium: ₹118/week"*
+
+### 2. 📡 Real-Time Environmental Monitoring
+The platform continuously streams 8 live data signals:
+
+| Signal | Threshold | Source |
 |---|---|---|
-| **Phase 1** — Ideation | Mar 4–20 | This README · GitHub repo · 2-min strategy video |
-| **Phase 2** — Build | Mar 21–Apr 4 | Onboarding · Premium calculator · Trigger engine · Basic fraud detection · Claims flow · 2-min demo video |
-| **Phase 3** — Scale | Apr 5–17 | Advanced fraud detection · Payout integration · Worker + admin dashboards · Final pitch deck · 5-min walkthrough video |
+| 🌧 Rainfall | > 15mm | Weather API (simulated) |
+| 🌡 Temperature | > 40°C | Weather API (simulated) |
+| 🌫 AQI Level | > 200 | Air Quality API (simulated) |
+| 🚧 Traffic Status | BLOCKED | Maps API (simulated) |
+| 📉 Order Volume | < 30% of normal | Platform API (simulated) |
+| 📍 Location Confidence | < 40% = suspicious | GPS Signal |
+| 📱 Device Status | SPOOFED = fraud flag | Device telemetry |
+| 🚚 User Activity | INACTIVE = fraud flag | Behavioral signal |
 
-Constraints Checklist
+Values update every 2 seconds via simulated data pipelines.
 
-| Requirement | Status |
+### 3. ⚡ Automated Claim Triggering
+- No button clicks. No forms. No waiting.
+- When disruption data crosses defined thresholds:
+  - System detects the event type
+  - Validates it against the worker's active plan
+  - Processes and credits payout automatically
+
+### 4. 💰 Instant Payout Simulation
+- Payout amounts per trigger:
+  - 🌧 Heavy Rain → ₹400
+  - 🌡 Extreme Heat → ₹300
+  - 🌫 Hazardous AQI → ₹350
+  - 🚧 Traffic Block → ₹250
+  - 📉 Order Drop → ₹200
+- Multiple simultaneous triggers = combined payout
+- Payout history tracked in the Claims tab
+
+### 5. 🔍 Multi-Signal Fraud Detection
+- Computes a **Fraud Risk Score (0–100)** on every claim event
+- Signals analyzed: GPS confidence, device status, user activity, order-rain correlation
+- Status thresholds:
+  - 🟢 0–34: **SAFE** → Payout proceeds
+  - 🟡 35–69: **SUSPICIOUS** → Flagged for manual review
+  - 🔴 70–100: **FRAUD** → Payout blocked, incident logged
+
+---
+
+##  AI/ML Integration
+
+### Risk Scoring Model
+The AI engine runs a continuous multi-factor risk assessment:
+
+```
+Risk Score = f(zone_multiplier, weather_severity, aqi_level, seasonal_factor)
+
+Premium = Base(₹99) × Zone Risk × Weather Multiplier
+```
+
+- **Zone risk** is pre-mapped based on historical disruption frequency
+- **Weather multiplier** dynamically adjusts based on live sensor data
+- The model recalculates every tick (2-second intervals)
+
+### Fraud Detection Logic
+A weighted signal scoring model evaluates each claim attempt:
+
+```
+Fraud Score:
+  + 40 pts  →  Location Confidence < 40%
+  + 20 pts  →  Location Confidence 40–60%
+  + 30 pts  →  User Activity = INACTIVE
+  + 25 pts  →  Device Status = SPOOFED
+  + 5 pts   →  Low orders + high rain (suspicious correlation)
+
+```
+► Analyzing environmental conditions...
+  🌧 Heavy Rain detected: 34.2mm — threshold exceeded
+  🌫 Hazardous AQI detected: 267 — threshold exceeded
+► Validating user activity & device signals...
+  📍 Location confidence: 91%
+  📱 Device: NORMAL
+  🚚 Activity: ACTIVE
+► Fraud risk score: 5/100
+✅ User verified — Triggering parametric payout...
+💰 Payout ₹750 credited automatically
+```
+
+All decision reasoning is visible to the user in the **AI Logs** panel.
+
+---
+
+## 🚨 Adversarial Defense — Market Crash Scenario
+
+**Scenario:** During a severe flood event (high payout period), a fraud ring attempts to mass-claim payouts using GPS-spoofed locations, inactive accounts, and spoofed device signals.
+
+### How RiskGuard Defends:
+
+#### 🛰 GPS Spoofing Detection
+- Location confidence is scored 0–100% in real time
+- Confidence < 40% adds 40 fraud points immediately
+- Spoofed coordinates typically produce unstable, low-confidence signals
+
+#### 📲 Multi-Signal Validation
+No single signal can trigger a fraud block. The system requires convergence:
+- Device integrity check (NORMAL vs SPOOFED)
+- User activity verification (ACTIVE vs INACTIVE)
+- Behavioral pattern consistency (is the worker actually on route?)
+- Environmental-order correlation (is the order drop realistic given the weather?)
+
+#### 🕵️ Fraud Ring Detection Logic
+- Mass simultaneous claims from the same zone are cross-checked against activity signals
+- Accounts showing INACTIVE + SPOOFED device + low location confidence → automatic block
+- Incident logged with timestamp, signal snapshot, and account ID
+
+#### ✅ Fair UX — No Punishment for Genuine Users
+- Genuine workers with high location confidence, normal device signals, and active status are **never** blocked
+- The system is designed to be conservative in fraud blocking — a score of 69 or below always proceeds to review, never direct block
+- Workers can see their real-time fraud score and understand why a claim was flagged
+
+---
+
+## 📦 Coverage Scope & Exclusions
+
+### ✅ What RiskGuard Covers
+- **Income loss** during verified environmental disruptions
+- Loss due to platform order volume drops during extreme events
+- Income impact from government-imposed restrictions during disasters
+
+### ❌ What RiskGuard Does NOT Cover
+
+| Excluded Category | Reason |
 |---|---|
-| Income loss coverage ONLY (no health/vehicle/accident) | ✅ |
-| Weekly pricing model | ✅ |
-| AI/ML in premium calculation + fraud detection | ✅ |
-| Parametric triggers with automated payouts | ✅ |
-| Strong fraud + GPS anti-spoofing strategy | ✅ |
-| Single delivery persona focus | ✅ Food delivery (Swiggy/Zomato), Chennai |
+| 🏥 Health & medical expenses | Requires separate health insurance |
+| 🚗 Vehicle damage or repairs | Covered under vehicle insurance |
+| 🤕 Accident compensation | Covered under personal accident policy |
+| 🦺 Equipment loss/theft | Requires asset insurance |
+| 📵 Platform-side technical issues | Not an environmental disruption |
 
- Repository Structure
+> RiskGuard is **income protection only** — parametric, event-driven, and scoped to verifiable external disruptions.
 
+---
+
+## 🏗️ Technical Architecture
+
+```
 riskguard/
-├── README.md
-├── app/              # React Native mobile app
-├── backend/          # Node.js API + trigger engine
-├── ml/               # Premium model + fraud detection
-├── admin-dashboard/  # React web app (insurer view)
-└── docs/             # Architecture diagrams, wireframes
+├── src/
+│   ├── components/
+│   │   ├── RegisterScreen.jsx      # Landing + form UI
+│   │   ├── Dashboard.jsx           # Policy + stats overview
+│   │   ├── LiveMonitor.jsx         # Real-time data feed panel
+│   │   ├── AIDecisionLogs.jsx      # Engine reasoning log
+│   │   └── ClaimsHistory.jsx       # Payout + fraud status
+│   ├── engine/
+│   │   ├── dataSimulator.js        # Simulated API data streams
+│   │   ├── disruptionEngine.js     # Threshold-based trigger logic
+│   │   ├── fraudScorer.js          # Multi-signal fraud scoring
+│   │   └── premiumCalculator.js    # Dynamic premium model
+│   ├── state/
+│   │   └── appState.js             # React state management
+│   └── App.jsx                     # Root component + routing
+├── public/
+├── package.json
+└── README.md
+```
 
+## 🔮 Future Enhancements
 
-*Built for Guidewire DEVTrails 2026 · Team: [CODERZ] · Institution: [CHENNAI INSTITUTE OF TECHNOLOGY]*
+### 🔌 Real API Integration
+- [ ] OpenWeatherMap API for live rainfall and temperature
+- [ ] CPCB (Central Pollution Control Board) API for real-time AQI
+- [ ] Google Maps Traffic API for zone-level congestion data
+- [ ] Platform webhooks (Swiggy/Zomato) for order volume signals
+
+### 🧠 Advanced ML Models
+- [ ] Time-series forecasting for disruption prediction (before it happens)
+- [ ] Personalized risk scoring per worker based on historical claims
+- [ ] Cluster analysis for fraud ring detection across multiple accounts
+- [ ] Anomaly detection using unsupervised learning (Isolation Forest)
+
+### 💳 Real Payment Infrastructure
+- [ ] UPI integration for instant wallet credit (Razorpay/PhonePe)
+- [ ] Blockchain-anchored claim records for auditability
+- [ ] Multi-currency support for future international expansion
+
+### 📊 Platform Integrations
+- [ ] Swiggy/Zomato partner API for identity and earnings verification
+- [ ] DigiLocker integration for KYC at registration
+- [ ] WhatsApp Business API for claim notifications
+
+### 🏦 Regulatory Compliance
+- [ ] IRDAI (Insurance Regulatory and Development Authority of India) sandbox registration
+- [ ] Parametric product filing under Sandbox Regulations 2019
+- [ ] Data privacy compliance under DPDP Act 2023
+
+---
+
+## 🚀 Project Evolution (Phase Journey)
+
+### Phase 1 — Ideation & Design (Hackathon Day 1)
+
+In Phase 1, we focused on deep **persona research** and **problem framing** using a SOAR-style structured approach:
+
+- **Situation:** Gig workers in India earning below ₹20,000/month with zero income protection
+- **Objective:** Design a financially viable, technology-first protection product for the informal gig economy
+- **Action:** Mapped disruption triggers (rain, heat, AQI, traffic, order volume) to parametric payout structures; designed a weekly premium model that is affordable (₹49–₹179/week); outlined a fraud defense strategy for the "Market Crash" adversarial scenario
+- **Result:** A fully validated conceptual model with defined pricing, coverage scope, persona fit, and AI strategy
+
+Key Phase 1 deliverables:
+- Persona: *Ravi, 28, Chennai delivery partner*
+- Weekly premium tiers: Basic (₹49), Standard (₹99), Premium (₹179)
+- Disruption trigger definitions with payout amounts
+- Fraud detection strategy: multi-signal validation architecture
+
+---
+
+### Phase 2 — Prototype & Build (Hackathon Day 2)
+
+In Phase 2, we transformed the conceptual model into a **fully functional, production-quality prototype**:
+
+- Built the **React frontend** with a multi-screen mobile-first UI (registration, dashboard, monitoring, AI logs, claims)
+- Implemented the **AI Decision Engine** with real-time threshold analysis and fraud scoring
+- Built the **dynamic premium calculator** that adjusts live based on zone and weather data
+- Created the **automated claim pipeline** — disruption detected → user verified → payout triggered, with zero manual steps
+- Designed the **fraud detection system** with multi-signal scoring and auto-block logic
+- Added a full **demo scenario control panel** for live hackathon demonstrations
+- Built an animated, cinematic **registration experience** with particle canvas and glassmorphism UI
+
+> *"Phase 1 gave us the blueprint. Phase 2 made it real."*
+
+---
+
+## 👥 Team
+
+| Name | Role |
+|---|---|
+| Divya S | Product & Strategy |
+| Iniya J | Frontend Development |
+| Anisha D | AI/ML & Backend Logic |
+| Archana K | UI/UX Design |
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
