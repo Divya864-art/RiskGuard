@@ -13,7 +13,7 @@ India has over **12 million gig delivery workers** on platforms like Swiggy, Zom
 
 The Gap
 
-> These workers have **zero financial protection**. Traditional insurance is too slow, too expensive, too paperwork-heavy — and simply not designed for the gig economy.
+These workers have **zero financial protection**. Traditional insurance is too slow, too expensive, too paperwork-heavy — and simply not designed for the gig economy.
 
 When disruptions strike, their income stops. There is no safety net.
 
@@ -33,9 +33,8 @@ Unlike traditional insurance:
 
 ### How It Works in One Line
 
-> The system continuously monitors weather, air quality, traffic, and worker activity. When a disruption threshold is crossed and the worker is verified as genuine, a payout is triggered — no human intervention required.
+ The system continuously monitors weather, air quality, traffic, and worker activity. When a disruption threshold is crossed and the worker is verified as genuine, a payout is triggered — no human intervention required.
 
----
 
 ##  Persona — Who We Built This For
 
